@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <script src="//resources/jquery-3.1.0.min.js"></script>
+    <script src="//resources/jscolor.js"></script>
+    <link rel="stylesheet" href="//resources/bootstrap.min.css" />
+    <link rel="stylesheet" href="//resources/AdminLTE.min.css" />
+    <link rel="stylesheet" href="//resources/skin-green.min.css" />
+</head>
+<body style="background-color: transparent;text-align:center;">
+    <div class="box box-solid" style="width:700px;display:inline-block;margin:100px;text-align:left;height:50vh;overflow-y:auto;overflow-x:hidden;">
+        <div class="box-header with-border">
+            <h3>Concessionária <span onclick="fecharBrowser()" class="pull-right label label-danger">X</span></h3> 
+        </div>
+        <div class="box-body">
+            <input type="hidden" id="tipo"/>
+            <input id="r1" type="hidden" value="0">
+            <input id="g1" type="hidden" value="0">
+            <input id="b1" type="hidden" value="0">
+            <input id="r2" type="hidden" value="0">
+            <input id="g2" type="hidden" value="0">
+            <input id="b2" type="hidden" value="0">
+            <div id="erro" class="alert alert-danger" style="display:none;"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Veículo</label>
+                        <input id="veiculo" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Cor Primária</label> <br/>
+						<button class="jscolor {valueElement:null,value:'000000',onFineChange:'updateCor1(this)'}" style="width:50px; height:20px;"></button>   
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Cor Secundária</label> <br/>
+						<button class="jscolor {valueElement:null,value:'000000',onFineChange:'updateCor2(this)'}" style="width:50px; height:20px;"></button>   
+                    </div>
+                </div>
+                <div class="col-md-2 pull-right">
+                    <button onclick="comprarVeiculo()" type="button" class="btn btn-block btn-success">Comprar</button>
+                </div>
+            </div>
+            <hr/>
+            <input id="pesquisa" type="text" autofocus class="form-control" placeholder="Pesquise os veículos..." />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody id="veiculos"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        $("#pesquisa").on('input', function () {
+            var pesquisa = removerAcentos($("#pesquisa").val());
+            $.each($(".pesquisaveh"), function (index, element) {
+                $(element).show();
+
+                if (pesquisa != "") {
+                    if (!removerAcentos($(element).html().toLowerCase()).includes(pesquisa.toLowerCase()))
+                        $(element).hide();
+                }
+            });
+        });
+    });
+
+    function mostrarErro(erro) {
+        if (erro != "") {
+            document.getElementById("erro").innerHTML = erro;
+            document.getElementById('erro').style.display = 'block';
+        }
+    }
+
+    function removerAcentos(s) {
+        return s.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function fecharBrowser() {
+        mp.trigger("fecharBrowser");
+        mp.trigger("ativarChat");
+    }
+
+    function comprarVeiculo() {
+        mp.trigger("comprarVeiculo", parseInt($("#tipo").val()), $("#veiculo").val(), 
+        parseInt($("#r1").val()), parseInt($("#g1").val()), parseInt($("#b1").val()),
+        parseInt($("#r2").val()), parseInt($("#g2").val()), parseInt($("#b2").val()));
+    }
+
+    function updateCor1(picker) 
+    {
+        $("#r1").val(picker.rgb[0]);
+        $("#g1").val(picker.rgb[1]);
+        $("#b1").val(picker.rgb[2]);
+    }
+
+    function updateCor2(picker) 
+    {
+        $("#r2").val(picker.rgb[0]);
+        $("#g2").val(picker.rgb[1]);
+        $("#b2").val(picker.rgb[2]);
+    }
+    </script>
+</body>
+</html>

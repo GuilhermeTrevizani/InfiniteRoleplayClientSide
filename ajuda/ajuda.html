@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <script src="//resources/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" href="//resources/bootstrap.min.css" />
+    <link rel="stylesheet" href="//resources/AdminLTE.min.css" />
+    <link rel="stylesheet" href="//resources/skin-green.min.css" />
+</head>
+<body style="background-color: transparent;text-align:center;">
+    <div class="box box-solid" style="width:700px;display: inline-block;margin:100px;text-align:left;max-height:50vh;overflow-y:auto;overflow-x:hidden;">
+        <div class="box-header with-border">
+            <h3>Lista de Comandos <span onclick="fecharBrowser()" class="pull-right label label-danger">X</span></h3> 
+        </div>
+        <div class="box-body">
+            <input id="pesquisa" type="text" autofocus class="form-control" placeholder="Pesquise os comandos..." />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Comando</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody id="comandos">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        $("#pesquisa").on('input', function () {
+            var pesquisa = removerAcentos($("#pesquisa").val());
+            $.each($(".pesquisacmd"), function (index, element) {
+                $(element).show();
+
+                if (pesquisa != "") {
+                    if (!removerAcentos($(element).html().toLowerCase()).includes(pesquisa.toLowerCase()))
+                        $(element).hide();
+                }
+            });
+        });
+    });
+
+    function removerAcentos(s) {
+        return s.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function fecharBrowser() {
+        mp.trigger("fecharBrowser");
+        mp.trigger("ativarChat");
+    }
+    </script>
+</body>
+</html>

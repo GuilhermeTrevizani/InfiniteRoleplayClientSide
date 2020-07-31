@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <script src="//resources/jquery-3.1.0.min.js"></script>
+        <script src="//resources/jquery.mask.min.js"></script>
+        <script src="criarpersonagem.js"></script>
+	    <link rel="stylesheet" href="//resources/bootstrap.min.css" />
+	    <link rel="stylesheet" href="//resources/AdminLTE.min.css" />
+	    <link rel="stylesheet" href="//resources/skin-green.min.css" />
+        <style type="text/css">
+        body {
+            overflow:hidden;
+        }
+        </style>
+</head>
+    <body style="background-color: transparent;">
+        <div class="login-logo"></div>
+        <div class="login-box">
+            <div class="text-center">
+                <img src="//resources/logo.png" class="login-logo" id="centeredlogo" />
+            </div>
+	        <div class="login-box-body">
+              <div id="erro" class="alert alert-danger" style="display:none;"></div>
+              <form>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Nome" id="nome" spellcheck="false" autofocus>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Sobrenome" id="sobrenome" spellcheck="false">
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Sexo (M ou F)" id="sexo" maxlength="1">
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" maxlength="10">
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Skin" id="skin">
+                </div>
+                <div class="row">
+                    <div class="col-xs-8 col-lg-6">
+                    <button type="button" class="btn btn-dark" onclick="voltarPersonagem();">Voltar</button>
+                    </div>
+                    <div class="col-xs-4 col-lg-6">
+                        <button type="button" class="btn btn-success" onclick="criarPersonagemSubmit();">Registrar</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <script src="//resources/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" href="//resources/bootstrap.min.css" />
+    <link rel="stylesheet" href="//resources/AdminLTE.min.css" />
+    <link rel="stylesheet" href="//resources/skin-green.min.css" />
+</head>
+<body style="background-color: transparent;text-align:center;">
+    <div class="box box-solid" style="width:700px;display:inline-block;margin:100px;text-align:left;height:50vh;overflow-y:auto;overflow-x:hidden;">
+        <div class="box-header with-border">
+            <h3>Celular <span onclick="fecharBrowser()" class="pull-right label label-danger">X</span></h3> 
+        </div>
+        <div class="box-body">
+            <div id="erro" class="alert alert-danger" style="display:none;"></div>
+            <div id="sucesso" class="alert alert-success" style="display:none;"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="celular" type="text" class="form-control" placeholder="Celular">
+                </div>
+                <div class="col-md-4">
+                    <input id="nome" type="text" class="form-control" placeholder="Nome do contato">
+                </div>
+                <div class="col-md-4">
+                    <button onclick="gravarContato()" type="button" class="btn btn-block btn-success">Gravar</button>
+                </div>
+            </div>
+            <hr/>
+            <input id="pesquisa" type="text" autofocus class="form-control" placeholder="Pesquise os contatos..." />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Número</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="contatos"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        $("#pesquisa").on('input', function () {
+            var pesquisa = removerAcentos($("#pesquisa").val());
+            $.each($(".pesquisacon"), function (index, element) {
+                $(element).show();
+
+                if (pesquisa != "") {
+                    if (!removerAcentos($(element).html().toLowerCase()).includes(pesquisa.toLowerCase()))
+                        $(element).hide();
+                }
+            });
+        });
+    });
+
+    function mostrarMensagem(msg, tipo) {
+        if (msg != "") {
+            if (tipo == 1) {
+                document.getElementById("erro").innerHTML = msg;
+                document.getElementById('erro').style.display = 'block';
+            } else {
+                
+                document.getElementById("sucesso").innerHTML = msg;
+                document.getElementById('sucesso').style.display = 'block';
+            }
+        }
+    }
+
+    function removerAcentos(s) {
+        return s.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function fecharBrowser() {
+        mp.trigger("fecharBrowser");
+        mp.trigger("ativarChat");
+    }
+
+    function gravarContato() {
+        var nome = document.getElementById("nome").value;
+        var celular = document.getElementById("celular").value;
+        mp.trigger("gravarContato", nome, celular);
+    }
+
+    function excluirContato(celular) {
+        mp.trigger("excluirContato", celular);
+    }
+    </script>
+</body>
+</html>
