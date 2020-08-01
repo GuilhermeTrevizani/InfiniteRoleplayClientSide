@@ -11,8 +11,7 @@ function criarPersonagemSubmit() {
 	var sobrenome = document.getElementById("sobrenome").value;
     var sexo = document.getElementById("sexo").value;
     var dataNascimento = document.getElementById("dataNascimento").value;
-    var skin = document.getElementById("skin").value;
-    mp.trigger("submitCriarPersonagem", nome, sobrenome, sexo, dataNascimento, skin);
+    mp.trigger("submitCriarPersonagem", nome, sobrenome, sexo, dataNascimento);
 }
 
 function mostrarErro(erro) {

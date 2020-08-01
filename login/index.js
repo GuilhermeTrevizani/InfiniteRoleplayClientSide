@@ -29,7 +29,7 @@ mp.events.add('playerConnected', (usuario, erro) => {
 	if (!mp.gui.cursor.visible)
 		mp.gui.cursor.show(true, true);
 
-	mp.discord.update("Infinite Roleplay", "infiniteroleplay.com.br");
+	mp.discord.update("TR3V1Z4", "guilhermetrevizani.com.br");
 	mp.game.ui.displayRadar(false);
 	mp.gui.chat.activate(false);
 	mp.gui.chat.show(false);
@@ -160,7 +160,7 @@ mp.events.add('selPersonagem', (id) => {
     mp.events.callRemote('selecionarPersonagem', id);
 });
 
-mp.events.add('criarPersonagem', (nome, sobrenome, sexo, dataNascimento, skin, erro) => {
+mp.events.add('criarPersonagem', (nome, sobrenome, sexo, dataNascimento, erro) => {
 	if (browser != null) {
 		browser.destroy(); 
         browser = null;
@@ -171,18 +171,17 @@ mp.events.add('criarPersonagem', (nome, sobrenome, sexo, dataNascimento, skin, e
 	browser.execute('document.getElementById("sobrenome").value = "' + sobrenome +'";');
 	browser.execute('document.getElementById("sexo").value = "' + sexo +'";');
 	browser.execute('document.getElementById("dataNascimento").value = "' + dataNascimento +'";');
-	browser.execute('document.getElementById("skin").value = "' + skin +'";');
 });
 
 mp.events.add('voltarPersonagem', () => {
     mp.events.callRemote('voltarSelecionarPersonagem', false);
 });
 
-mp.events.add('submitCriarPersonagem', (nome, sobrenome, sexo, dataNascimento, skin) => {
+mp.events.add('submitCriarPersonagem', (nome, sobrenome, sexo, dataNascimento) => {
 	if (browser != null) {
 		browser.destroy(); 
         browser = null;
 	}
 	
-    mp.events.callRemote('criarPersonagem', nome, sobrenome, sexo, dataNascimento, skin);
+    mp.events.callRemote('criarPersonagem', nome, sobrenome, sexo, dataNascimento);
 });
