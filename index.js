@@ -20,6 +20,8 @@ mp.gui.chat.show(false);
 const chatbox = mp.browsers.new('package://chat/index.html');
 chatbox.markAsChat();
 
+const weaponSlots = new Set([1993361168,1277010230,932043479,690654591,1459198205,195782970,-438797331,896793492,495159329,-1155528315,-515636489,-871913299,-1352759032,-542958961,1682645887,-859470162,-2125426402,2067210266,-538172856,1783244476,439844898,-24829327,1949306232,-1941230881,-1033554448,320513715,-695165975,-281028447,-686713772,347509793,1769089473,189935548,248801358,386596758,-157212362,436985596,-47957369, 575938238]);
+
 mp.keys.bind(0x72, false, () => {
     if (!mp.gui.cursor.visible)
         mp.gui.cursor.show(true, true);
@@ -92,32 +94,34 @@ mp.events.add('setWaypoint', (x, y) => {
     mp.game.ui.setNewWaypoint(x, y);
 });
 
-// testes
-mp.events.add("attachEntityToEntity", (entity1, entity2, boneIndex, posOffset, rotOffset) => {
-	entity1.attachTo(entity2.handle, entity2.getBoneIndex(boneIndex), posOffset.x, posOffset.y, posOffset.z, rotOffset.x, rotOffset.y, rotOffset.z, true, true, false, true, 0, true);
+mp.events.add('salvarPersonagem', (online) => {
+    let weapons = "";
+    weaponSlots.forEach(weaponSlot => {
+        let weapon = mp.game.invoke('0xEFFED78E9011134D', mp.players.local.handle, weaponSlot);
+        if (weapon !== 0 && weapon !== -1569615261)
+            weapons += weapon + "|" + mp.game.invoke('0x015A522136D7F951', mp.players.local.handle, weapon) + ";";
+    });
+    mp.events.callRemote('salvarPersonagem', weapons, online);
 });
 
-mp.events.add('teta', () => {
-    //mp.game.ped.createPed(6, 368603149, mp.players.local.position.x, mp.players.local.position.y, mp.players.local.position.z, mp.players.local.getHeading(), true, true);
-    const localPlayer = mp.players.local;
-    localPlayer.getWeaponTypeInSlot = (weaponSlot) => mp.game.invoke('0xBBDDEBFD9564D52C', localPlayer.handle, weaponSlot);
-    localPlayer.getAmmoWeapon = (weaponhash) => mp.game.invoke('0x2406A9C8DA99D3F4', localPlayer.handle, weaponhash);
-    localPlayer.removeWeapon = (weaponhash) => mp.game.invoke('0xA48F593CC7A71FCC', localPlayer.handle, weaponhash);
-    localPlayer.setWeaponAmmo = (weaponhash, ammo) => mp.game.invoke('0xC8207C41C6D1E3CF', localPlayer.handle, weaponhash, ammo);
-    //localPlayer.currentWeapon = mp.game.invoke('0x6678C142FAC881BA', localPlayer.handle);
-    //localPlayer.giveWeaponComponent = (weaponhash, component) => mp.game.invoke('0xAD084726D7F23594', localPlayer.handle, weaponhash, component);
-    //localPlayer.getWeaponClipSize = (weaponhash) => mp.game.invoke('0xADBCA3534D2F6BEB', weaponhash);
-    localPlayer.getAllWeapons = () => {
-        const weapons = [];
-        weaponSlots.forEach(weaponSlot => {
-            const weapon = localPlayer.getWeaponTypeInSlot(weaponSlot);
-            if (weapon !== 0 && weapon !== -1569615261) {
-                weapons[weapon] = { ammo: localPlayer.getAmmoWeapon(weapon) };
-            }
-        });
-		mp.events.callRemote('teta2', weapons);
-    };
-    localPlayer.getAllWeapons();
+// testes
+mp.nametags.set({
+    font: 6,
+    outline: true,
+    offset: 0.7,
+    veh_offset: 1.0,
+    color: [255, 255, 255, 255],
+    size: 0.5,
+
+    hbar: {
+        size: [0.06, 0.008],
+        color: [0, 0, 0, 0],
+        bg_color: [0, 0, 0, 0]
+    },
+});
+
+mp.events.add("attachEntityToEntity", (entity1, entity2, boneIndex, posOffset, rotOffset) => {
+	entity1.attachTo(entity2.handle, entity2.getBoneIndex(boneIndex), posOffset.x, posOffset.y, posOffset.z, rotOffset.x, rotOffset.y, rotOffset.z, true, true, false, true, 0, true);
 });
 
 /*
