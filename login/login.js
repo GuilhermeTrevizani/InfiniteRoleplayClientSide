@@ -14,3 +14,9 @@ function mostrarErro(erro) {
         document.getElementById('erro').style.display = 'block';
     }
 }
+
+function mostrarUsuario(usuario) {
+    $('#user').val(usuario);
+    if (usuario != "")
+        $('#password').focus();
+}

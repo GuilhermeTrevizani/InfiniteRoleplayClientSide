@@ -86,7 +86,7 @@ mp.events.add('playerConnected', (usuario, erro) => {
 	mp.game.vehicle.defaultEngineBehaviour = false;
 	mp.players.local.setConfigFlag(429, true);
 	
-	browser.execute('document.getElementById("user").value = "' + usuario +'"; mostrarErro("' + erro + '");');
+	browser.execute('mostrarUsuario("' + usuario +'"); mostrarErro("' + erro + '");');
 });
 
 mp.events.add('logarPersonagem', () => {

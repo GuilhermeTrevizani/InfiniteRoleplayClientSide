@@ -108,7 +108,7 @@ mp.events.add('salvarPersonagem', (online) => {
 function exibirCursor() {
     if (!mp.gui.cursor.visible)
         setTimeout(async () => {
-            mp.gui.cursor.visible = true;
+            mp.gui.cursor.show(true, true);
         }, 0);
 }
 
@@ -116,8 +116,8 @@ function exibirCursor() {
 mp.nametags.set({
     font: 6,
     outline: true,
-    offset: 0.7,
-    veh_offset: 1.0,
+    offset: 0.3,
+    veh_offset: 0.8,
     color: [255, 255, 255, 255],
     size: 0.5,
 
