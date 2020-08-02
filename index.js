@@ -14,6 +14,7 @@ require('./concessionaria');
 require('./celular');
 require('./multas');
 require('./compras');
+require('./armario');
 
 mp.gui.chat.show(false);
 
@@ -103,6 +104,13 @@ mp.events.add('salvarPersonagem', (online) => {
     });
     mp.events.callRemote('salvarPersonagem', weapons, online);
 });
+
+function exibirCursor() {
+    if (!mp.gui.cursor.visible)
+        setTimeout(async () => {
+            mp.gui.cursor.visible = true;
+        }, 0);
+}
 
 // testes
 mp.nametags.set({

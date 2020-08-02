@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <script src="//resources/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" href="//resources/bootstrap.min.css" />
+    <link rel="stylesheet" href="//resources/AdminLTE.min.css" />
+    <link rel="stylesheet" href="//resources/skin-green.min.css" />
+</head>
+<body style="background-color: transparent;text-align:center;">
+    <div class="box box-solid" style="width:700px;display:inline-block;margin:100px;text-align:left;height:50vh;overflow-y:auto;overflow-x:hidden;">
+        <div class="box-header with-border">
+            <h3><span id="tituloarmario"></span> <span onclick="fecharBrowser()" class="pull-right label label-danger">X</span></h3> 
+        </div>
+        <div class="box-body">
+            <div id="erro" class="alert alert-danger" style="display:none;"></div>
+            <div id="sucesso" class="alert alert-success" style="display:none;"></div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Arma</th>
+                        <th>Munição</th>
+                        <th>Estoque</th>
+                        <th>Rank</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="itens"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    function mostrarMensagem(msg, tipo) {
+        if (msg != "") {
+            if (tipo == 1) {
+                document.getElementById("erro").innerHTML = msg;
+                document.getElementById('erro').style.display = 'block';
+            } else {
+                document.getElementById("sucesso").innerHTML = msg;
+                document.getElementById('sucesso').style.display = 'block';
+            }
+        }
+    }
+
+    function fecharBrowser() {
+        mp.trigger("fecharBrowser");
+        mp.trigger("ativarChat");
+    }
+
+    function equiparItemArmario(armario, obj) {
+        mp.trigger("equiparItemArmario", armario, $(obj).data("arma"));
+    }
+    </script>
+</body>
+</html>

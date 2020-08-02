@@ -13,8 +13,7 @@ mp.events.add('abrirCelular', (contatos, msg, tipo) => {
 	    browser.execute(`$("#contatos").append('<tr class="pesquisacon"><td>${p.Nome}</td> <td>${p.Celular}</td> <td><button class="btn btn-xs btn-danger" type="button" onclick="excluirContato(${p.Celular})">Excluir</button></td></tr>');`);
     });
     
-    if (!mp.gui.cursor.visible)
-      mp.gui.cursor.show(true, true);
+    exibirCursor();
 });
 
 mp.events.add('gravarContato', (nome, celular) => {

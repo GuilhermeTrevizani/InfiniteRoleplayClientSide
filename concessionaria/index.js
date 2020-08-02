@@ -14,8 +14,7 @@ mp.events.add('comandoVComprar', (tipo, veiculos, erro) => {
 	    browser.execute(`$("#veiculos").append('<tr class="pesquisaveh"><td>${p.Nome}</td> <td>${p.Preco}</td></tr>');`);
     });
     
-    if (!mp.gui.cursor.visible)
-      mp.gui.cursor.show(true, true);
+    exibirCursor();
 });
 
 mp.events.add('comprarVeiculo', (tipo, veiculo, r1, g1, b1, r2, g2, b2) => {

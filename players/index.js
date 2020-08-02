@@ -17,13 +17,12 @@ mp.events.add('playersOnline', (personagens) => {
 		    playersBrowser.destroy(); 
         playersBrowser = null;
     }
-    
-    if (!mp.gui.cursor.visible)
-		mp.gui.cursor.show(true, true);
 
     playersBrowser = mp.browsers.new('package://players/players.html');
     playersBrowser.execute(`$( '#onlinecount').text( '${personagens.length}');`);
     personagens.forEach(function(p) {
 	    playersBrowser.execute(`$("#onlineplayers").append('<tr> <th scope="row">${p.id}</th> <td>${p.nome}</td> <td>${p.ping}</td> </tr>');`);
     });
+    
+    exibirCursor();
 });

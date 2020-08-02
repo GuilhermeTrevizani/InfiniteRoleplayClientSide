@@ -13,8 +13,7 @@ mp.events.add('visualizarMultas', (multas, erro) => {
 	    browser.execute(`$("#contatos").append('<tr><td>${p.Codigo}</td> <td>${p.Data}</td> <td>${p.Valor}</td> <td>${p.Motivo}</td> <td><button class="btn btn-xs btn-success" type="button" onclick="pagarMulta(${p.Codigo})">Pagar</button></td></tr>');`);
     });
     
-    if (!mp.gui.cursor.visible)
-      mp.gui.cursor.show(true, true);
+    exibirCursor();
 });
 
 mp.events.add('pagarMulta', (multa) => {
